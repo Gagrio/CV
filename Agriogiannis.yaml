@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
-# Build: rendercv render George_Agriogiannis_CV.yaml
+# Build: rendercv render Agriogiannis.yaml
 cv:
   name: George Agriogiannis
   headline: Linux & Cloud Infrastructure Engineer | SRE · DevOps · Kubernetes
@@ -164,3 +164,10 @@ design:
 locale:
   language: english
   month_abbreviations: [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+settings:
+  render_command:
+    typst_path: OUTPUT_FOLDER/Agriogiannis.typ
+    pdf_path: OUTPUT_FOLDER/Agriogiannis.pdf
+    markdown_path: OUTPUT_FOLDER/Agriogiannis.md
+    html_path: OUTPUT_FOLDER/Agriogiannis.html
+    png_path: OUTPUT_FOLDER/Agriogiannis.png

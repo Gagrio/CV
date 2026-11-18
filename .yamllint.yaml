@@ -1,0 +1,11 @@
+extends: default
+
+rules:
+  # CV bullets are long sentences
+  line-length: disable
+  document-start: disable
+  # GitHub Actions uses "on:" as a key
+  truthy:
+    check-keys: false
+  comments:
+    min-spaces-from-content: 1

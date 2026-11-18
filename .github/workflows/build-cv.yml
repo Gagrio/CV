@@ -4,23 +4,34 @@ on:
   push:
     branches: [main]
     paths:
-      - George_Agriogiannis_CV.yaml
+      - "*.yaml"
+      - tests/**
       - .github/workflows/build-cv.yml
   pull_request:
     paths:
-      - George_Agriogiannis_CV.yaml
+      - "*.yaml"
+      - tests/**
       - .github/workflows/build-cv.yml
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: build-cv-${{ github.ref }}
+  cancel-in-progress: false
+
 env:
+  # The RenderCV input file
+  CV_FILE: Agriogiannis.yaml
   # google/fonts commit the SUSE font is taken from
   FONTS_REF: 5bd87dfc525c8a0d1d8529d3684716e00c3fc59a
+  # Checks on the rendered PDF (see tests/check_cv.py)
+  MAX_PAGES: 2
+  EXPECTED_FONT: SUSE
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -29,8 +40,39 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install linters
+        run: pip install yamllint codespell actionlint-py ruff
+
+      - name: YAML lint
+        run: yamllint .
+
+      - name: Spell check
+        run: codespell --skip ".git" .
+
+      - name: Workflow lint
+        run: actionlint
+
+      - name: Python lint
+        run: |
+          ruff check tests
+          ruff format --check tests
+
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.publish.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
       - name: Install RenderCV
-        run: pip install "rendercv[full]==2.8"
+        run: pip install "rendercv[full]==2.8" pypdf pdfminer.six
 
       - name: Fetch SUSE font
         run: |
@@ -40,11 +82,67 @@ jobs:
           curl -fsSL -o 'fonts/SUSE-Italic[wght].ttf' "$base/SUSE-Italic%5Bwght%5D.ttf"
 
       - name: Render CV
-        run: rendercv render George_Agriogiannis_CV.yaml
+        run: rendercv render "$CV_FILE"
 
-      - name: Upload PDF
+      - name: Check the PDF
+        run: python tests/check_cv.py "$CV_FILE" rendercv_output
+
+      - name: Upload PDF and page previews
         uses: actions/upload-artifact@v6
         with:
-          name: George_Agriogiannis_CV
-          path: rendercv_output/George_Agriogiannis_CV.pdf
+          name: cv
+          path: |
+            rendercv_output/*.pdf
+            rendercv_output/*.png
           if-no-files-found: error
+
+      - name: Decide whether to publish
+        id: publish
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          # Publish on manual runs, and on pushes to main that change the CV itself
+          publish=false
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            publish=true
+          elif [ "$GITHUB_EVENT_NAME" = push ]; then
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = 0000000000000000000000000000000000000000 ] \
+               || git diff --name-only "$BEFORE" "$GITHUB_SHA" | grep -qx "$CV_FILE"; then
+              publish=true
+            fi
+          fi
+          echo "publish=$publish" >> "$GITHUB_OUTPUT"
+          echo "Publish a release: $publish"
+
+  release:
+    # Only from main, and never from pull requests
+    if: needs.build.outputs.publish == 'true' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: cv
+          path: cv
+
+      - name: Publish a versioned release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # Calendar versioning: v2026.11.18, then v2026.11.18.2 for a second release that day
+          base="v$(date -u +%Y.%m.%d)"
+          tag="$base"
+          n=1
+          while gh release view "$tag" > /dev/null 2>&1; do
+            n=$((n + 1))
+            tag="$base.$n"
+          done
+          gh release create "$tag" cv/* \
+            --target "$GITHUB_SHA" \
+            --title "CV ${tag#v}" \
+            --generate-notes \
+            --latest
+          echo "Published $tag"
