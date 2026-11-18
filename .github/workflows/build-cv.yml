@@ -23,9 +23,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -43,7 +43,7 @@ jobs:
         run: rendercv render George_Agriogiannis_CV.yaml
 
       - name: Upload PDF
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: George_Agriogiannis_CV
           path: rendercv_output/George_Agriogiannis_CV.pdf
