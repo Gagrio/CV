@@ -1,0 +1,50 @@
+name: Build CV
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - George_Agriogiannis_CV.yaml
+      - .github/workflows/build-cv.yml
+  pull_request:
+    paths:
+      - George_Agriogiannis_CV.yaml
+      - .github/workflows/build-cv.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # google/fonts commit the SUSE font is taken from
+  FONTS_REF: 5bd87dfc525c8a0d1d8529d3684716e00c3fc59a
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install RenderCV
+        run: pip install "rendercv[full]==2.8"
+
+      - name: Fetch SUSE font
+        run: |
+          mkdir -p fonts
+          base="https://raw.githubusercontent.com/google/fonts/${FONTS_REF}/ofl/suse"
+          curl -fsSL -o 'fonts/SUSE[wght].ttf'        "$base/SUSE%5Bwght%5D.ttf"
+          curl -fsSL -o 'fonts/SUSE-Italic[wght].ttf' "$base/SUSE-Italic%5Bwght%5D.ttf"
+
+      - name: Render CV
+        run: rendercv render George_Agriogiannis_CV.yaml
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: George_Agriogiannis_CV
+          path: rendercv_output/George_Agriogiannis_CV.pdf
+          if-no-files-found: error

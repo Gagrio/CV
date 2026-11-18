@@ -1,0 +1,166 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
+# Build: rendercv render George_Agriogiannis_CV.yaml
+cv:
+  name: George Agriogiannis
+  headline: Linux & Cloud Infrastructure Engineer | SRE · DevOps · Kubernetes
+  location: Prague, Czechia (EU citizen)
+  email: gagriogi@gmail.com
+  social_networks:
+    - network: LinkedIn
+      username: gagriogiannis
+    - network: GitHub
+      username: Gagrio
+  sections:
+    summary:
+      - Infrastructure engineer with 14 years across Linux engineering, site reliability, DevOps and enterprise support at SUSE, Thales, Red Hat, Oracle and AT&T. I build and run cloud infrastructure with Terraform, Kubernetes and GitOps pipelines on AWS and GCP, and I troubleshoot complex production issues down to the OS and network layer. I work directly with developers and customers, and have worked as a shift lead and as a squad technical lead.
+    skills:
+      - label: Containers
+        details: Kubernetes, Docker, Helm, Rancher, RKE2/K3s, Podman, SUSE Edge (Metal3, Elemental, SUSE Linux Micro)
+      - label: Cloud & IaC
+        details: AWS, Terraform, GCP
+      - label: CI/CD & GitOps
+        details: Git, GitHub Actions, GitLab CI, Flux
+      - label: Linux & Unix
+        details: RHEL/CentOS, Ubuntu, Debian, SLES/openSUSE, Oracle Linux, Solaris, AIX; hardening, performance and deep OS-level troubleshooting
+      - label: Config management
+        details: Ansible, Chef, SaltStack
+      - label: Observability
+        details: Prometheus, Grafana, Datadog, ELK/EFK
+      - label: Networking
+        details: TCP/IP, DNS, DHCP, load balancing (nginx, Kubernetes Ingress, cloud load balancers), Linux firewalling (netfilter) and cloud firewall rules, tcpdump/Wireshark, RADIUS
+      - label: Scripting
+        details: Bash and Python for small automation and administrative tasks; AI-assisted tool development in Rust and Python
+      - label: Databases
+        details: PostgreSQL (CloudNativePG), Oracle Database administration
+      - label: Identity & security
+        details: Red Hat IdM (FreeIPA), Kerberos, Samba, SSSD, Red Hat Directory Server / 389 DS, PAM, CVE triage
+      - label: Build & packaging
+        details: Container images, RPM packaging, Open Build Service (OBS)
+      - label: Ways of working
+        details: Agile/Scrum, escalation management, root cause analysis, Jira/Confluence
+    experience:
+      - company: SUSE
+        position: L3 Edge Support Engineer
+        location: Prague
+        start_date: 2024-10
+        end_date: 2026-11
+        highlights:
+          - Handled L3 customer escalations for SUSE Edge, a Kubernetes-based platform for running containerised workloads at edge sites (RKE2/K3s, Rancher, SUSE Linux Micro, Metal3, Elemental).
+          - Reproduced and diagnosed complex defects across the stack, including Helm- and Flux-based deployments, and delivered hotfixes and patches to customers.
+          - Worked with engineering on release and lifecycle decisions, feeding customer impact back into supportability.
+          - Built AI-assisted diagnostic tools (Rust, Python) for log and config collection, packaged and built them through SUSE's Open Build Service (OBS) for internal use, and wired them into validation pipelines with Ansible roles.
+          - Updated the SUSE Edge product documentation.
+      - company: Thales Digital Identity & Security (ex-Gemalto)
+        position: DevOps Engineer
+        location: Prague
+        start_date: 2022-01
+        end_date: 2024-09
+        highlights:
+          - Built automated GitOps pipelines in GitLab CI that deploy cloud infrastructure on AWS and GCP with Terraform.
+          - "Technical lead of the GCP squad within the Infrastructure team: guided colleagues and customers on the platform, took part in infrastructure design and drove new feature implementation."
+          - Ran Docker and Kubernetes workloads with Helm and Flux, monitored with Datadog, and acted as the go-to expert for other teams on infrastructure requests and deployments.
+      - company: SUSE
+        position: Cloud Site Reliability Engineer
+        location: Prague
+        start_date: 2020-04
+        end_date: 2021-12
+        highlights:
+          - Part of the team that migrated SUSE's internal IT systems and services from on-premises to AWS, built with Terraform and SaltStack on SLES/openSUSE, with Prometheus/Grafana monitoring and Travis CI.
+          - Helped other teams across the organisation build and maintain their own AWS services, driving these cross-team projects through to completion.
+      - company: ITADEL
+        position: Linux Systems Engineer
+        location: Prague
+        start_date: 2019-02
+        end_date: 2020-03
+        highlights:
+          - Ran customer hosting across bare metal, VMware, AWS/Azure and a private OpenShift OKD cloud, managed with Puppet, Chef and Ansible.
+          - "Built services on request: serverless microservices, Jenkins CI/CD, monitoring stacks (Nagios, Grafana, ELK/EFK, Graylog) and Kubernetes environments."
+          - Standardised solutions and troubleshooting procedures; escalation point for the Service Center support team.
+      - company: Tripsta
+        position: Linux Systems Engineer
+        location: Athens
+        start_date: 2018-06
+        end_date: 2018-07
+        highlights:
+          - "Supported the infrastructure behind high-traffic travel booking sites: Debian, nginx, HAProxy, Salt, Jenkins and ELK; migrated physical servers to VMware."
+      - company: Oracle
+        position: Senior Cloud Operations Engineer
+        location: Brno
+        start_date: 2017-05
+        end_date: 2018-05
+        highlights:
+          - Provisioned and re-provisioned servers with Salt, and maintained HP hardware, Red Hat and Oracle Linux.
+          - Rebuilt and reconfigured application servers (Java, Kafka, ELK) and ran Oracle database moves, resizes and cutovers within and between data centres.
+      - company: NetSuite (acquired by Oracle)
+        position: Senior Systems Administrator
+        location: Brno
+        start_date: 2017-02
+        end_date: 2017-04
+        summary: Same platform and duties; the role moved to Oracle with the NetSuite integration.
+      - company: Red Hat
+        position: Senior Technical Support Engineer
+        location: Brno
+        start_date: 2014-04
+        end_date: 2017-01
+        summary: Promoted to Technical Support Engineer (2015) and Senior (2016).
+        highlights:
+          - Supported RHEL, identity management and core services (DNS, DHCP, SNMP) in a 24x7 follow-the-sun model.
+          - Specialist in the Identity Management team (SSSD, Kerberos, IdM, 389 DS, Samba, PAM); led EMEA onboarding and training for the team.
+          - Found and reported bugs in SSSD and IdM, and resolved configuration-level issues; took part in QA test days and gave product management the customer view.
+          - Helped customers assess and fix vulnerabilities such as POODLE, Badlock and Dirty COW.
+          - "Worked on the networking team: server-side TCP/IP, ARP and ICMP troubleshooting with tcpdump and Wireshark."
+      - company: AT&T
+        position: Jr Network Specialist, IP Control Plane Fault Management
+        location: Brno
+        start_date: 2012-05
+        end_date: 2014-03
+        highlights:
+          - Monitored and troubleshot AT&T's network in the NOC (Cisco/HP devices, Solaris, AIX and Linux servers, F5 load balancers); shift leader for 4–5 engineers for about a year.
+          - Managed customer DNS zones and the DHCP platform; joined root cause analysis on IP outages (DNS, DHCP, RADIUS).
+    projects:
+      - name: '[gitops-platform](https://github.com/Gagrio/gitops-platform)'
+        summary: GitOps platform on GCP — Terraform (dev/prod), Ansible-bootstrapped k3s and Flux; CloudNativePG Postgres HA with backups, Prometheus/Grafana, secrets via External Secrets and Workload Identity Federation; CI with plan, lint, deploy and post-deploy health checks.
+      - name: '[condash](https://github.com/Gagrio/condash)'
+        summary: Rust CLI that spins up temporary Prometheus/Grafana monitoring for any container; released for Linux and macOS via Homebrew and openSUSE packages.
+      - name: '[More on GitHub](https://github.com/Gagrio)'
+        summary: Rust and Python diagnostic tools, two of them contributed to SUSE Edge.
+    education:
+      - institution: University of West Attica (formerly TEI of Athens)
+        area: Computer Science Engineering
+        degree: BSc
+        date: 2013
+    additional:
+      - label: Certification
+        details: Red Hat Certificate of Expertise in Server Hardening (2015)
+      - label: Languages
+        details: Greek (native); English (C2 – Cambridge Certificate of Proficiency in English, University of Michigan Certificate of Proficiency); French (DALF – Diplôme approfondi de langue française); Czech (elementary)
+      - label: Other
+        details: Driving licence B and BE; interested in photography
+design:
+  theme: opal
+  page:
+    size: a4
+    top_margin: 0.5in
+    bottom_margin: 0.5in
+    left_margin: 0.6in
+    right_margin: 0.6in
+  colors:
+    name: rgb(12, 50, 44)
+    headline: rgb(12, 50, 44)
+    connections: rgb(12, 50, 44)
+    section_titles: rgb(48, 186, 120)
+    links: rgb(48, 186, 120)
+  typography:
+    font_family: SUSE
+    font_size:
+      body: 9.5pt
+  section_titles:
+    type: centered_with_centered_partial_line
+  sections:
+    space_between_regular_entries: 0.8em
+  header:
+    connections:
+      display_urls_instead_of_usernames: true
+locale:
+  language: english
+  month_abbreviations: [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
