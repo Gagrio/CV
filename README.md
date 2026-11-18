@@ -98,7 +98,7 @@ rendercv render Agriogiannis.yaml
 The PDF, PNG previews, Markdown and HTML versions land in `rendercv_output/`. To run the same checks as CI:
 
 ```bash
-pip install yamllint codespell pypdf pdfminer.six
+pip install yamllint codespell pyyaml pypdf pdfminer.six
 yamllint . && codespell --skip .git .
 python tests/check_cv.py Agriogiannis.yaml rendercv_output
 ```

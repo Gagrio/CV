@@ -72,7 +72,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install RenderCV
-        run: pip install "rendercv[full]==2.8" pypdf pdfminer.six
+        run: pip install "rendercv[full]==2.8" pyyaml pypdf pdfminer.six
 
       - name: Fetch SUSE font
         run: |
